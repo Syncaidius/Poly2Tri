@@ -16,65 +16,62 @@ namespace SimplePolygonExample
     /// </summary>
     public partial class PolygonRenderer : UserControl
     {
-        public enum Mode
-        {
-            Wireframe,
-            Fill
-        }
-
-        class PointBatch
-        {
-            public PointF[] Points;
-            public Pen Pen;
-        }
-
-        /// <summary>
-        /// Gets or sets the render mode of the current <see cref="PolygonRenderer"/>
-        /// </summary>
-        public Mode RenderMode
-        {
-            get => _mode;
-            set
-            {
-                if(_mode != value)
-                {
-                    _mode = value;
-                    // TODO repaint with new mode.
-                }
-            }
-        }
-
-        List<PointBatch> _points;
-        Mode _mode;
+        PointF[] _points;
+        List<PointF[]> _holePoints;
+        Triangle[] _triangles;
+        Pen _pen;
+        Pen _holePen;
         Brush _defaultBrush;
 
         public PolygonRenderer()
         {
             InitializeComponent();
-            _points = new List<PointBatch>();
-            _mode = Mode.Wireframe;
             _defaultBrush = new SolidBrush(Color.Black);
+            _pen = new Pen(new SolidBrush(Color.Red));
+            _holePen = new Pen(new SolidBrush(Color.Blue));
+            _holePoints = new List<PointF[]>();
         }
 
-        public void SetPoints(IList<TriPoint> points, Color color)
+        private void TriPointsToArray(IList<TriPoint> points, out PointF[] destination)
         {
-            PointBatch pb = new PointBatch();
-            pb.Pen = new Pen(new SolidBrush(color));
+            int count = points.Count;
+            count += points[0] != points[points.Count - 1] ? 1 : 0;
 
             int i = 0;
-            pb.Points = new PointF[points.Count];
+            destination = new PointF[count];
             foreach (TriPoint p in points)
-                pb.Points[i++] = new PointF((float)p.X, (float)p.Y);
+                destination[i++] = new PointF((float)p.X, (float)p.Y);
+
+            // Add final point to complete outline if the provided points did not form a complete loop/contour
+            if (count > points.Count)
+                destination[points.Count] = destination[0];
+            Refresh();
         }
 
-        public void SetPoints(Shape s, Color color)
+        public void SetPoints(IList<TriPoint> points)
         {
-            SetPoints(s.Points, color);
+            TriPointsToArray(points, out _points);
         }
 
-        public void ClearPoints()
+        public void SetHoles(IList<Shape> holes)
         {
-            _points.Clear();
+            foreach(Shape h in holes)
+            {
+                PointF[] hPoints = new PointF[h.Points.Count];
+                TriPointsToArray(h.Points, out hPoints);
+                _holePoints.Add(hPoints);
+            }
+        }
+
+        public void SetPoints(Shape s)
+        {
+            SetPoints(s.Points);
+        }
+
+        public void SetTriangles(IList<Triangle> triangles)
+        {
+            _triangles = new Triangle[triangles.Count];
+            triangles.CopyTo(_triangles, 0);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -94,17 +91,24 @@ namespace SimplePolygonExample
             }
             else
             {
-                switch (_mode)
+                if (_points != null)
+                    e.Graphics.DrawLines(_pen, _points);
+
+                if (_triangles != null)
                 {
-                    case Mode.Wireframe:
-                        foreach (PointBatch pb in _points)
-                            e.Graphics.DrawLines(pb.Pen, pb.Points);
-                        break;
-
-                    case Mode.Fill:
-
-                        break;
+                    foreach (Triangle t in _triangles)
+                    {
+                        PointF p0 = new PointF((float)t.Points[0].X, (float)t.Points[0].Y);
+                        PointF p1 = new PointF((float)t.Points[1].X, (float)t.Points[1].Y);
+                        PointF p2 = new PointF((float)t.Points[2].X, (float)t.Points[2].Y);
+                        e.Graphics.DrawLine(_pen, p0, p1);
+                        e.Graphics.DrawLine(_pen, p1, p2);
+                        e.Graphics.DrawLine(_pen, p2, p0);
+                    }
                 }
+
+                foreach(PointF[] hPoints in _holePoints)
+                    e.Graphics.DrawLines(_holePen, hPoints);
             }
         }
     }

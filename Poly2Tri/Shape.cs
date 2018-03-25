@@ -38,6 +38,16 @@ namespace Poly2Tri
         /// <summary>
         /// Create a polygon from a list of at least 3 points with no duplicates.
         /// </summary>
+        /// <param name="points">A list of unique points</param>
+        public Shape(IList<TriPoint> points, Vector2 offset, float scale)
+        {
+            for (int i = 0; i < points.Count; i++)
+                Points.Add(new TriPoint(offset + ((Vector2)points[i] * scale)));
+        }
+
+        /// <summary>
+        /// Create a polygon from a list of at least 3 points with no duplicates.
+        /// </summary>
         /// <param name="points">A list of unique points.</param>
         public Shape(IEnumerable<TriPoint> points) : this((points as IList<TriPoint>) ?? points.ToArray()) { }
 
@@ -46,6 +56,12 @@ namespace Poly2Tri
         /// </summary>
         /// <param name="points">A list of unique points.</param>
         public Shape(params TriPoint[] points) : this((IList<TriPoint>)points) { }
+
+        /// <summary>
+        /// Create a polygon from a list of at least 3 points with no duplicates.
+        /// </summary>
+        /// <param name="points">A list of unique points.</param>
+        public Shape(params Vector2[] points) : this((IList<Vector2>)points) { }
 
         /// <summary>
         /// Creates a polygon from a list of at least 3 Vector3 points, with no duplicates.

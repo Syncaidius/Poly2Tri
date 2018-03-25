@@ -13,7 +13,7 @@ namespace SimplePolygonExample
     public static class ExampleData
     {
         // Define a test shape
-        public static readonly Shape NumberTwo = new Shape(new List<Vector2>()
+        public static readonly Vector2[] NumberTwo = new Vector2[]
             {
                 new Vector2(2158.9981,2350.2286),
                 new Vector2(2158.9981,3245.4557),
@@ -75,6 +75,6 @@ namespace SimplePolygonExample
                 new Vector2(1544.4495,1000.9025),
                 new Vector2(1114.8304,1605.018),
                 new Vector2(563.42839,2350.2286),
-            });
+            };
     }
 }
