@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SimplePolygonExample
 {
+    /// <summary>
+    /// A helper class containing test data for the examples.
+    /// </summary>
     public static class ExampleData
     {
         // Define a test shape
