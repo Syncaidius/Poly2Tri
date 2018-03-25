@@ -1,4 +1,4 @@
-﻿namespace SimplePolygonExample
+﻿namespace PolygonExample
 {
     partial class SimplePolygonWindow
     {
@@ -31,9 +31,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.polyWithHoles = new SimplePolygonExample.PolygonRenderer();
-            this.polyAfter = new SimplePolygonExample.PolygonRenderer();
-            this.polyBefore = new SimplePolygonExample.PolygonRenderer();
+            this.polyWithHoles = new PolygonExample.PolygonRenderer();
+            this.polyAfter = new PolygonExample.PolygonRenderer();
+            this.polyBefore = new PolygonExample.PolygonRenderer();
             this.SuspendLayout();
             // 
             // label1
@@ -98,7 +98,9 @@
             this.Controls.Add(this.polyBefore);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "SimplePolygonWindow";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Simple Polygon Example";
             this.ResumeLayout(false);

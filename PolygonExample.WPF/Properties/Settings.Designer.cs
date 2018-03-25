@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimplePolygonExample.Properties
+namespace PolygonExample.WPF.Properties
 {
 
 

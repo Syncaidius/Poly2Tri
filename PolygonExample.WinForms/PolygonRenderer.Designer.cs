@@ -1,4 +1,4 @@
-﻿namespace SimplePolygonExample
+﻿namespace PolygonExample
 {
     partial class PolygonRenderer
     {

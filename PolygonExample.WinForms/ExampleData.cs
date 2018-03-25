@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimplePolygonExample
+namespace PolygonExample
 {
     /// <summary>
     /// A helper class containing test data for the examples.

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Poly2Tri;
 
-namespace SimplePolygonExample
+namespace PolygonExample
 {
     /// <summary>
     /// A helper control for drawing our example data.
