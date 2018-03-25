@@ -21,6 +21,7 @@ namespace SimplePolygonExample
         Triangle[] _triangles;
         Pen _pen;
         Pen _holePen;
+        Pen _holePenBg;
         Brush _defaultBrush;
 
         public PolygonRenderer()
@@ -29,6 +30,7 @@ namespace SimplePolygonExample
             _defaultBrush = new SolidBrush(Color.Black);
             _pen = new Pen(new SolidBrush(Color.Red));
             _holePen = new Pen(new SolidBrush(Color.Blue));
+            _holePenBg = new Pen(new SolidBrush(Color.FromArgb(255, 100, 100, 100)));
             _holePoints = new List<PointF[]>();
         }
 
@@ -107,8 +109,11 @@ namespace SimplePolygonExample
                     }
                 }
 
-                foreach(PointF[] hPoints in _holePoints)
+                foreach (PointF[] hPoints in _holePoints)
+                {
+                    e.Graphics.FillPolygon(_holePenBg.Brush, hPoints);
                     e.Graphics.DrawLines(_holePen, hPoints);
+                }
             }
         }
     }
