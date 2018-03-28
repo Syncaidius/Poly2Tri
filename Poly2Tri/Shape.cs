@@ -97,14 +97,14 @@ namespace Poly2Tri
             foreach(TriPoint p in Points)
             {
                 if (p.X < b.MinX)
-                    b.MinX = (float)p.X;
+                    b.MinX = p.X;
                 else if (p.X > b.MaxX)
-                    b.MaxX = (float)p.Y;
+                    b.MaxX = p.Y;
 
                 if (p.Y < b.MinY)
-                    b.MinY = (float)p.Y;
+                    b.MinY = p.Y;
                 else if (p.Y > b.MaxY)
-                    b.MaxY = (float)p.Y;
+                    b.MaxY = p.Y;
             }
 
             return b;

@@ -44,14 +44,14 @@ namespace Poly2Tri
         public void Encapsulate(Vector2 p)
         {
             if (p.X < MinX)
-                MinX = (float)Math.Floor(p.X);
+                MinX = Math.Floor(p.X);
             if (p.X > MaxX)
-                MaxX = (float)Math.Ceiling(p.X);
+                MaxX = Math.Ceiling(p.X);
 
             if (p.Y < MinY)
-                MinY = (float)Math.Floor(p.Y);
+                MinY = Math.Floor(p.Y);
             if (p.Y > MaxY)
-                MaxY = (float)Math.Ceiling(p.Y);
+                MaxY = Math.Ceiling(p.Y);
         }
 
         /// <summary>
@@ -193,17 +193,6 @@ namespace Poly2Tri
         /// </summary>
         /// <value>The bottom-right corner of the rectangle.</value>
         public Vector2 BottomRight { get { return new Vector2(MaxX, MaxY); } }
-
-        /// <summary>Pushes the edges of the rectangle out by the horizontal and vertical values specified.</summary>
-        /// <param name="horizontalAmount">Value to push the sides out by.</param>
-        /// <param name="verticalAmount">Value to push the top and bottom out by.</param>
-        public void Inflate(float horizontalAmount, float verticalAmount)
-        {
-            X -= horizontalAmount;
-            Y -= verticalAmount;
-            Width += horizontalAmount * 2;
-            Height += verticalAmount * 2;
-        }
 
         /// <summary>Determines whether this rectangle contains a specified Point.</summary>
         /// <param name="value">The Point to evaluate.</param>
