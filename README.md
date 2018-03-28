@@ -5,6 +5,7 @@ Examples included for both WPF and WinForms. I may add more if I get the time.
 
 # License
 As per the Poly2Tri license:
+
 	Poly2Tri Copyright (c) 2009-2010, Poly2Tri Contributors
 	http://code.google.com/p/poly2tri/
 
