@@ -20,6 +20,11 @@ namespace Poly2Tri
             _search_node = _head;
         }
 
+        public void SetSearch(Node node)
+        {
+            _search_node = node;
+        }
+
         public Node LocateNode(double x)
         {
             Node node = _search_node;
@@ -50,10 +55,15 @@ namespace Poly2Tri
             return null;
         }
 
+        Node FindSearchNode(double x)
+        {
+            return _search_node;
+        }
+
         public Node LocatePoint(TriPoint point)
         {
             double px = point.X;
-            Node node = _search_node;
+            Node node = FindSearchNode(px);
             double nx = node.Point.X;
 
             if (px == nx)
@@ -61,19 +71,19 @@ namespace Poly2Tri
                 if (point != node.Point)
                 {
                     // We might have two nodes with same x value for a short time
-                    if (point == node.Prev.Point)
+                    if (point.Equals(node.Prev.Point))
                         node = node.Prev;
-                    else if (point == node.Next.Point)
+                    else if (point.Equals(node.Next.Point))
                         node = node.Next;
                     else
-                        Debug.Assert(false, "What happened here????");
+                        Debug.Assert(false);
                 }
             }
             else if (px < nx)
             {
                 while ((node = node.Prev) != null)
                 {
-                    if (point == node.Point)
+                    if (point.Equals(node.Point))
                         break;
                 }
             }
@@ -81,7 +91,7 @@ namespace Poly2Tri
             {
                 while ((node = node.Next) != null)
                 {
-                    if (point == node.Point)
+                    if (point.Equals(node.Point))
                         break;
                 }
             }

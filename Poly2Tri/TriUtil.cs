@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Poly2Tri
 {
@@ -17,7 +13,11 @@ namespace Poly2Tri
             double detleft = (pa.X - pc.X) * (pb.Y - pc.Y);
             double detright = (pa.Y - pc.Y) * (pb.X - pc.X);
             double val = detleft - detright;
-            if (val > -EPSILON && val < EPSILON)
+
+            // Using a tolerance here fails on concave-by-subepsilon boundaries
+            //   if (val > -EPSILON && val < EPSILON) {
+            // Using == on double makes -Wfloat-equal warnings yell at us
+            if (val == 0.0 || val == -0.0)
                 return Winding.Collinear;
             else if (val > 0)
                 return Winding.CCW;

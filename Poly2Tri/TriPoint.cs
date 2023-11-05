@@ -167,15 +167,6 @@ namespace Poly2Tri
             return X == other.X && Y == other.Y;
         }
 
-        public static bool operator ==(TriPoint a, TriPoint b)
-        {
-            return a.X == b.X && a.Y == b.Y;
-        }
-        public static bool operator !=(TriPoint a, TriPoint b)
-        {
-            return a.X != b.X || a.Y != b.Y;
-        }
-
         public static TriPoint operator *(TriPoint a, double scale)
         {
             return new TriPoint(a.X * scale, a.Y * scale)

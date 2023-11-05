@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Poly2Tri
 {
@@ -107,8 +103,8 @@ namespace Poly2Tri
             double dx = K_ALPHA * (xmax - xmin);
             double dy = K_ALPHA * (ymax - ymin);
 
-            _head = new TriPoint(xmax + dx, ymin - dy);
-            _tail = new TriPoint(xmin - dx, ymin - dy);
+            _head = new TriPoint(xmin - dx, ymin - dy);
+            _tail = new TriPoint(xmax + dx, ymin - dy);
 
             // Sort points along y-axis
             _points.Sort(_cmp);
@@ -141,7 +137,7 @@ namespace Poly2Tri
 
         public void CreateAdvancingFront(List<Node> nodes)
         {
-            Triangle triangle = new Triangle(_points[0], _tail, _head);
+            Triangle triangle = new Triangle(_points[0], _head, _tail);
 
             _map.Add(triangle);
 
